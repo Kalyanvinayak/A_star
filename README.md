@@ -16,6 +16,61 @@ Run the executable:
 astar.exe
 This executes the A algorithm* and sends data to Arduino via COM7 (LEDs) and COM8 (LCD).
 
+## Features
+
+- **A* Algorithm Implementation:** Efficient pathfinding using the A* algorithm with real-time latitude and longitude for heuristic calculation.
+- **Dual Arduino Setup:** Two Arduino boards communicate via serial ports, one controlling the LED matrix (COM7) and the other controlling the LCD (COM8).
+- **LED Path Visualization:** LEDs light up sequentially along the path found by the A* algorithm, with a delay between each LED for visual effect.
+- **LCD Cost Display:** The total cost of the path is shown on a 16x2 LCD display.
+- **Real-Time Heuristic Calculation:** Straight-line distances between nodes (locations in Imphal) are calculated using actual geographical coordinates.
+
+---
+
+## Hardware Components
+
+- **Arduino Uno (x2):** One for controlling the LED matrix and another for controlling the LCD.
+- **LED Matrix:** Displays the nodes in the city and lights up to show the shortest path.
+- **16x2 LCD Display:** Shows the total cost of the shortest path.
+- **Shift Register:** Used to control the LED matrix with fewer GPIO pins.
+- **Connecting Wires, Breadboard, Power Supply.**
+
+---
+
+## Software Components
+
+- **C++ Program:** Implements the A* algorithm and communicates with the Arduino boards over serial communication (COM7 and COM8).
+- **Arduino Code (x2):**
+  - **COM7:** Controls the LED matrix based on the path data received from C++.
+  - **COM8:** Displays the path cost on the LCD.
+
+- **Libraries:**
+  - Arduino `LiquidCrystal` library for LCD control.
+  - Custom C++ code for serial communication using the Win32 API.
+
+---
+
+## System Design
+
+The project follows a modular design to separate software and hardware components:
+
+1. **A* Algorithm:**
+   - Computes the shortest path between 20 key locations in Imphal, Manipur.
+   - Uses real-time latitude and longitude to calculate heuristic values (`h(n)`).
+   
+2. **Serial Communication:**
+   - C++ sends path data to Arduino via COM7 for LED matrix control.
+   - Simultaneously, the path cost is sent to Arduino via COM8 for LCD display.
+
+3. **LED Matrix:**
+   - Controlled via a shift register connected to Arduino.
+   - Lights up sequentially to show the nodes in the path.
+
+4. **LCD Display:**
+   - Displays the total path cost calculated by the A* algorithm.
+
+---
+
+
 ###3️⃣ **Circuit Configuration**
 Connect the LED matrix to the first Arduino using a shift register.
 Connect the LCD display to the second Arduino.
